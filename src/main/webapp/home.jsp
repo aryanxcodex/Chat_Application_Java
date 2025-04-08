@@ -138,9 +138,9 @@
         }
 
         const users = [
-            { id: 'user1', name: 'Alex', lastMessage: 'Hey, how’s it going?', time: '12:30 PM' },
-            { id: 'user2', name: 'Sophie', lastMessage: 'See you later!', time: '11:45 AM' },
-            { id: 'user3', name: 'Liam', lastMessage: 'What’s up?', time: 'Yesterday' }
+            { id: 'user1', name: 'Ram', lastMessage: 'Hey, how’s it going?', time: '12:30 PM' },
+            { id: 'user2', name: 'Sham', lastMessage: 'See you later!', time: '11:45 AM' },
+            { id: 'user3', name: 'Ajay', lastMessage: 'What’s up?', time: 'Yesterday' }
         ];
 
         const chatList = document.getElementById('chatList');
@@ -156,7 +156,7 @@
                     </div>
                     <div class="time">${user.time}</div>
                 `;
-                tile.onclick = () => window.location.href = chat.jsp?chatWithId=${user.id}&chatWithName=${user.name};
+                tile.onclick = () => { window.location.href = `chat.jsp?chatWithId=${encodeURIComponent(user.id)}&chatWithName=${encodeURIComponent(user.name)}`; };
                 chatList.appendChild(tile);
             }
         });

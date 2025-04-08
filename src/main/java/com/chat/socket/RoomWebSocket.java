@@ -1,8 +1,8 @@
 package com.chat.socket;
 
-import jakarta.websocket.*;
-import jakarta.websocket.server.PathParam;
-import jakarta.websocket.server.ServerEndpoint;
+import javax.websocket.*;
+import javax.websocket.server.PathParam;
+import javax.websocket.server.ServerEndpoint;
 
 import java.io.IOException;
 import java.util.*;

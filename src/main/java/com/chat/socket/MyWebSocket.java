@@ -1,7 +1,7 @@
 package com.chat.socket;
 
-import jakarta.websocket.*;
-import jakarta.websocket.server.ServerEndpoint;
+import javax.websocket.*;
+import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
 
 @ServerEndpoint("/chat")

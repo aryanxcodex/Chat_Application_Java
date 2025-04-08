@@ -163,7 +163,7 @@
             <h2>💬 Join a Chat Room</h2>
         </div>
         <div class="input-fields" id="connectArea">
-            <input type="text" id="username" placeholder="Your name e.g. Aryan">
+
             <input type="text" id="room" placeholder="Room name e.g. room1">
             <button onclick="connect()">Connect</button>
         </div>
@@ -177,17 +177,13 @@
     </div>
 
     <script>
-    const username = localStorage.getItem('loggedInUsername') || localStorage.getItem('username');
-    if(!username){
-        window.location.href = 'login.jsp';
-    }
         let socket;
         let username;
         let typingTimeout;
 
         function connect() {
             const room = document.getElementById("room").value.trim();
-            username = document.getElementById("username").value.trim();
+            username = localStorage.getItem("username");
 
             if (!room || !username) return alert("Please enter both username and room name");
 
