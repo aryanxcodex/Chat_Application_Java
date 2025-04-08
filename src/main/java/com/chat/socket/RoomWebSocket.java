@@ -39,7 +39,13 @@ public class RoomWebSocket {
     @OnMessage
     public void onMessage(String message, Session session, @PathParam("room") String room) {
         String username = sessionUsernames.getOrDefault(session, "Guest");
-        System.out.println("📩 [" + room + "] " + username + ": " + message);
+
+        // handle typing
+        if (message.startsWith("[TYPING]")) {
+            sendToRoom(room, message); // Broadcast typing
+            return;
+        }
+
         sendToRoom(room, username + ": " + message);
     }
 
