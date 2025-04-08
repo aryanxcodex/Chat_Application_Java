@@ -162,7 +162,7 @@
         });
 
         function logout() {
-            localStorage.removeItem('loggedInUsername');
+            localStorage.removeItem('username');
             window.location.href = 'login.jsp';
         }
     </script>

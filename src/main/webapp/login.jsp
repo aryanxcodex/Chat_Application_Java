@@ -145,7 +145,7 @@
                 const data = await response.json();
 
                 if (response.ok && data.success) {
-                    // Store session data (optional)
+                    // Store session data
                     localStorage.setItem("name", data.name);
                     localStorage.setItem("username", data.username);
                     // Redirect to home
