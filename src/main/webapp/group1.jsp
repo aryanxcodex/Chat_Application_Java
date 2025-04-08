@@ -177,6 +177,10 @@
     </div>
 
     <script>
+    const username = localStorage.getItem('loggedInUsername') || localStorage.getItem('username');
+    if(!username){
+        window.location.href = 'login.jsp';
+    }
         let socket;
         let username;
         let typingTimeout;
