@@ -123,7 +123,7 @@
         <div class="home-header">
             <h2>ChatSphere</h2>
             <div class="button-group">
-                <button class="group-btn" onclick="window.location.href='group.jsp'">Group Chat</button>
+                <button class="group-btn" onclick="window.location.href='group1.jsp'">Group Chat</button>
                 <button class="logout-btn" onclick="logout()">Logout</button>
             </div>
         </div>
