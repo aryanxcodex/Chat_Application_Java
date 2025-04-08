@@ -121,18 +121,44 @@
     </div>
 
     <script>
-        function handleSignup(event) {
+        async function handleSignup(event) {
             event.preventDefault();
-            const name = document.getElementById('name').value;
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
 
-            localStorage.setItem('name', name);
-            localStorage.setItem('username', username);
-            localStorage.setItem('password', password);
-            window.location.href = 'login.jsp';
+            const name = document.getElementById('name').value.trim();
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const contextPath = '<%= request.getContextPath() %>';
+
+            const formData = new URLSearchParams();
+            formData.append('name', name);
+            formData.append('username', username);
+            formData.append('password', password);
+
+            try {
+                const response = await fetch(`${contextPath}/api/signup`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: formData.toString(),
+                });
+
+                const result = await response.json();
+
+                if (response.ok && result.success) {
+                    alert(result.message); // or show on page
+                    window.location.href = `${contextPath}/login.jsp`;
+                } else {
+                    alert(result.message || 'Signup failed. Please try again.');
+                }
+            } catch (error) {
+                alert('Server error. Please try again later.');
+                console.error('Signup error:', error);
+            }
+
             return false;
         }
     </script>
+
 </body>
 </html>

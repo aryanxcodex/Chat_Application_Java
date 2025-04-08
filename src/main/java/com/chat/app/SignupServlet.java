@@ -24,13 +24,13 @@ public class SignupServlet extends HttpServlet {
 
         if (username == null || password == null || name == null) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            out.print("{success: false, message: Missing required fields.}");
+            out.print("{\"success\": false, \"message\": \"Missing required fields.\"}");
             return;
         }
 
         if (username.length() < 4 || username.length() > 20) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            out.print("{success: false, message: Username must be between 4 and 20 characters.}");
+            out.print("{\"success\": false, \"message\": \"Username must be between 4 and 20 characters.\"}");
             return;
         }
 
@@ -49,7 +49,7 @@ public class SignupServlet extends HttpServlet {
 
             if (rs.next()) {
                 response.setStatus(HttpServletResponse.SC_CONFLICT);
-                out.print("{success: false, message: Username already exists.}");
+                out.print("{\"success\": false, \"message\": \"Username already exists.\"}");
                 return;
             }
 
@@ -62,15 +62,15 @@ public class SignupServlet extends HttpServlet {
             int rows = insertStmt.executeUpdate();
             if (rows > 0) {
                 response.setStatus(HttpServletResponse.SC_OK);
-                out.print("{success: true, message: Signup successful.}");
+                out.print("{\"success\": true, \"message\": \"Signup successful.\"}");
             } else {
                 response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                out.print("{success: false, message: Signup failed. Try again.}");
+                out.print("{\"success\": false, \"message\": \"Signup failed. Try again.\"}");
             }
 
         } catch (SQLException e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            out.print("{success: false, message: Database error.}");
+            out.print("{\"success\": false, \"message\": \"Database error.\"}");
             e.printStackTrace(out);
         }
     }

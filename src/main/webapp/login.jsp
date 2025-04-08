@@ -6,12 +6,8 @@
     <title>Login - ChatSphere</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
+        /* CSS remains unchanged */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
         body {
             background: #e5ddd5;
             min-height: 100vh;
@@ -110,9 +106,7 @@
         <div class="login-header">
             <h2>Login to ChatSphere</h2>
         </div>
-        <div id="errorMessage" class="error-message">
-            Invalid username or password. Please try again.
-        </div>
+        <div id="errorMessage" class="error-message"></div>
         <form id="loginForm" onsubmit="return handleLogin(event)">
             <div class="form-group">
                 <label for="username">Username</label>
@@ -130,23 +124,44 @@
     </div>
 
     <script>
-        function handleLogin(event) {
+        async function handleLogin(event) {
             event.preventDefault();
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            const errorMessage = document.getElementById('errorMessage');
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+            const errorMessage = document.getElementById("errorMessage");
 
-            const storedUsername = localStorage.getItem('username');
-            const storedPassword = localStorage.getItem('password');
-            const validUsername = "user";
-            const validPassword = "pass123";
-            if (username === validUsername && password === validPassword) {
-                localStorage.setItem('loggedInUsername', username);
-                window.location.href = 'home.jsp';
-            } else {
-                errorMessage.style.display = 'block';
-                setTimeout(() => errorMessage.style.display = 'none', 3000);
+            try {
+                const response = await fetch("<%=request.getContextPath()%>/api/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    body: new URLSearchParams({
+                        username: username,
+                        password: password
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    // Store session data (optional)
+                    localStorage.setItem("name", data.name);
+                    localStorage.setItem("username", data.username);
+                    // Redirect to home
+                    window.location.href = "home.jsp";
+                } else {
+                    errorMessage.style.display = "block";
+                    errorMessage.textContent = data.message || "Login failed.";
+                    setTimeout(() => errorMessage.style.display = "none", 4000);
+                }
+            } catch (error) {
+                errorMessage.style.display = "block";
+                errorMessage.textContent = "An error occurred. Please try again.";
+                console.error("Login error:", error);
+                setTimeout(() => errorMessage.style.display = "none", 4000);
             }
+
             return false;
         }
     </script>

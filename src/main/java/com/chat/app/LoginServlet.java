@@ -24,7 +24,7 @@ public class LoginServlet extends HttpServlet {
 
         if (username == null || password == null) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            out.print("{success: false, message: Missing username or password.}");
+            out.print("{\"success\": false, \"message\": \"Missing username or password.\"}");
             return;
         }
 
@@ -39,19 +39,19 @@ public class LoginServlet extends HttpServlet {
                 if (BCrypt.checkpw(password, storedHash)) {
                     response.setStatus(HttpServletResponse.SC_OK);
                     String name = rs.getString("name");
-                    out.print("{success: true, message: Login successful., name: " + name + ", username: " + username + "}");
+                    out.print("{\"success\": true, \"message\": \"Login successful.\", \"name\": \"" + name + "\", \"username\": \"" + username + "\"}");
                 } else {
                     response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                    out.print("{success: false, message: Invalid username or password.}");
+                    out.print("{\"success\": false, \"message\": \"Invalid username or password.\"}");
                 }
             } else {
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                out.print("{success: false, message: Invalid username or password.}");
+                out.print("{\"success\": false, \"message\": \"Invalid username or password.\"}");
             }
 
         } catch (SQLException e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            out.print("{success: false, message: Database error.}");
+            out.print("{\"success\": false, \"message\": \"Database error.\"}");
             e.printStackTrace(out);
         }
     }
