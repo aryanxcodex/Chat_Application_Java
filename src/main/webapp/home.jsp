@@ -43,7 +43,11 @@
             font-size: 24px;
             font-weight: 600;
         }
-        .home-header .logout-btn {
+        .home-header .button-group {
+            display: flex;
+            gap: 10px;
+        }
+        .home-header .group-btn, .home-header .logout-btn {
             background: rgba(255, 255, 255, 0.1);
             border: none;
             color: #ffffff;
@@ -54,7 +58,7 @@
             cursor: pointer;
             transition: background 0.3s ease;
         }
-        .home-header .logout-btn:hover {
+        .home-header .group-btn:hover, .home-header .logout-btn:hover {
             background: rgba(255, 255, 255, 0.2);
         }
         .chat-list {
@@ -118,7 +122,10 @@
     <div class="home-container">
         <div class="home-header">
             <h2>ChatSphere</h2>
-            <button class="logout-btn" onclick="logout()">Logout</button>
+            <div class="button-group">
+                <button class="group-btn" onclick="window.location.href='group1.jsp'">Group Chat</button>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
         </div>
         <div class="chat-list" id="chatList"></div>
     </div>
@@ -149,7 +156,7 @@
                     </div>
                     <div class="time">${user.time}</div>
                 `;
-                tile.onclick = () => window.location.href = `chat.jsp?chatWithId=${user.id}&chatWithName=${user.name}`;
+                tile.onclick = () => window.location.href = chat.jsp?chatWithId=${user.id}&chatWithName=${user.name};
                 chatList.appendChild(tile);
             }
         });
